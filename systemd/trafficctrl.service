@@ -1,0 +1,13 @@
+[Unit]
+Description=Turtle Taffic Controller
+Before=computercraft.service
+
+[Service]
+ExecStart=/usr/local/bin/turtletrafficctrl start-server
+ExecStop=/usr/local/bin/turtletrafficctrl stop-server
+Restart=always
+RestartSec=10
+SyslogIdentifier=turtletrafficctrl
+
+[Install]
+WantedBy=multi-user.target
