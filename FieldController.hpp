@@ -4,7 +4,7 @@
 #include "GPSInformation.hpp"
 #include "HttpException.hpp"
 #include <nlohmann/json.hpp>
-#include <istream>
+#include <iostream>
 
 namespace TurtleManagement {
 	class FieldController {
@@ -15,8 +15,13 @@ namespace TurtleManagement {
 			const nlohmann::json json = nlohmann::json::parse(std::string((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>()));
 			for (const auto& fields : json["fields"]) {
 				GPSInformation gps{};
+				const std::string FieldID = fields["id"].get<std::string>();
 				for (const auto& i : fields["hosts"]) gps.emplace(i.get<std::string>(), false);
-				this->Fields.emplace(fields["id"].get<std::string>(), gps);
+				this->Fields.emplace(FieldID, gps);
+				std::cout << "Field Information Loaded: { id: " << FieldID
+					<< ", GPS Hosts: " << gps.size() << " loaded"
+					<< (fields.contains("comment") ? (", comment: " + fields["comment"].get<std::string>()) : "")
+					<< " }" << std::endl;
 			}
 		}
 		void RunGPSHost(const std::string& FieldID, const std::string& GPSHostID) {

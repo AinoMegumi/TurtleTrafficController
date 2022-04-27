@@ -1,9 +1,9 @@
 #if !defined TURTLE_TRAFFIC_CONTROLLER_HPP
 #define TURTLE_TRAFFIC_CONTROLLER_HPP
+#include "olstream.hpp"
 #include "FieldController.hpp"
 #include "ProtectionAreaController.hpp"
 #include "httplib.h"
-#include <iostream>
 #include <mutex>
 
 namespace TurtleManagement {
@@ -32,7 +32,7 @@ namespace TurtleManagement {
 					}
 					catch (const std::exception& er) {
 						res.status = 500;
-						std::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
+						stream::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
 					}
 				}
 			);
@@ -48,7 +48,7 @@ namespace TurtleManagement {
 					}
 					catch (const std::exception& er) {
 						res.status = 500;
-						std::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
+						stream::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
 					}
 				}
 			);
@@ -61,7 +61,7 @@ namespace TurtleManagement {
 					}
 					catch (const std::exception& er) {
 						res.status = 500;
-						std::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
+						stream::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
 					}
 				}
 			);
@@ -77,7 +77,7 @@ namespace TurtleManagement {
 					}
 					catch (const std::exception& er) {
 						res.status = 500;
-						std::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
+						stream::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
 					}
 				}
 			);
@@ -94,7 +94,7 @@ namespace TurtleManagement {
 					}
 					catch (const std::exception& er) {
 						res.status = 500;
-						std::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
+						stream::cout << req.method << " " << req.path << " : " << er.what() << std::endl;
 					}
 				}
 			);

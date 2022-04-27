@@ -3,7 +3,7 @@
 #include "GetIterator.hpp"
 #include "ProtectionAreaInformation.hpp"
 #include <nlohmann/json.hpp>
-#include <istream>
+#include <iostream>
 #include <sstream>
 
 namespace TurtleManagement {
@@ -16,10 +16,14 @@ namespace TurtleManagement {
 			: ProtectAreaInfo(), ProtectAreaInfoJson((std::istreambuf_iterator<char>(is)), std::istreambuf_iterator<char>()) {
 			const nlohmann::json json = nlohmann::json::parse(this->ProtectAreaInfoJson);
 			for (const auto& area : json["protectionarea"]) {
+				const std::string FieldID = area["id"].get<std::string>();
 				this->ProtectAreaInfo.emplace(
-					area["id"].get<std::string>(),
+					FieldID,
 					ProtectionArea(area["pos"]["x"].get<int>(), area["pos"]["y"].get<int>(), area["pos"]["z"].get<int>())
 				);
+				std::cout << "Protection Area Loaded: { id: " << FieldID
+					<< (area.contains("comment") ? (", comment: " + area["comment"].get<std::string>()) : "")
+					<< " }" << std::endl;
 			}
 		}
 		bool ApproachToProtectionArea(const std::string& ProtectionAreaID) {
